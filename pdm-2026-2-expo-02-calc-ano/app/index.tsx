@@ -1,4 +1,5 @@
 import { calculateAnoNascText } from "@/utils";
+import { Link } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
@@ -27,6 +28,9 @@ export default function Index() {
             readOnly={true}
           />
       </View>
+      <Link href="scrollViewExample">ScrollView Example</Link>
+      <Link href="flatListBasics">FlatList Basics Example</Link>
+      <Link href="sectionListBasics">SectionList Basics Example</Link>
     </View>
   );
 }
