@@ -1,19 +1,11 @@
-import {SectionList, StyleSheet, Text, View} from 'react-native';
+import { SectionList, StyleSheet, Text, View } from "react-native";
 
 const DATA = [
-    {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
-    {
-    title: 'J',
-    data: [
-        'Jackson',
-        'James',
-        'Jillian',
-        'Jimmy',
-        'Joel',
-        'John',
-        'Julie',
-    ],
-    },
+  { title: "D", data: ["Devin", "Dan", "Dominic"] },
+  {
+    title: "J",
+    data: ["Jackson", "James", "Jillian", "Jimmy", "Joel", "John", "Julie"],
+  },
 ];
 
 const SectionListBasics = () => {
@@ -21,11 +13,11 @@ const SectionListBasics = () => {
     <View style={styles.container}>
       <SectionList
         sections={DATA}
-        renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-        renderSectionHeader={({section}) => (
+        renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+        renderSectionHeader={({ section }) => (
           <Text style={styles.sectionHeader}>{section.title}</Text>
         )}
-        keyExtractor={item => `basicListEntry-${item}`}
+        keyExtractor={(item) => `basicListEntry-${item}`}
       />
     </View>
   );
@@ -40,20 +32,20 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     fontSize: 20,
-    fontWeight: 'bold',
-    backgroundColor: 'beige',
-    width: '90%'
+    fontWeight: "bold",
+    backgroundColor: "beige",
+    width: "90%",
   },
   item: {
     padding: 10,
     fontSize: 18,
     height: 44,
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: "black",
     marginVertical: 25,
     marginHorizontal: 15,
-    backgroundColor: 'olive',
-    color: 'white',
+    backgroundColor: "olive",
+    color: "white",
   },
 });
 

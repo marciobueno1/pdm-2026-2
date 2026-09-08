@@ -3,9 +3,8 @@ import { Link } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-
 export default function Index() {
-  const [idade, setIdade] = useState('');
+  const [idade, setIdade] = useState("");
   let anoNasc = calculateAnoNascText(idade);
 
   return (
@@ -14,19 +13,15 @@ export default function Index() {
       <View style={styles.viewInput}>
         <Text>Idade: </Text>
         <TextInput
-            style={styles.input}
-            onChangeText={setIdade}
-            value={idade}
-            keyboardType="numeric"
-          />
+          style={styles.input}
+          onChangeText={setIdade}
+          value={idade}
+          keyboardType="numeric"
+        />
       </View>
       <View style={styles.viewInput}>
         <Text>Ano Nascimento: </Text>
-        <TextInput
-            style={styles.input}
-            value={anoNasc}
-            readOnly={true}
-          />
+        <TextInput style={styles.input} value={anoNasc} readOnly={true} />
       </View>
       <Link href="scrollViewExample">ScrollView Example</Link>
       <Link href="flatListBasics">FlatList Basics Example</Link>
@@ -54,9 +49,9 @@ const styles = StyleSheet.create({
   },
   viewInput: {
     marginVertical: 20,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
