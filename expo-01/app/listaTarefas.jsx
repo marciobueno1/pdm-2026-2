@@ -2,8 +2,16 @@ import { addTarefa, deleteTarefa, getTarefas, updateTarefa } from "@/api";
 import { Tarefa } from "@/components/Tarefa";
 // import { useTaskFilter } from "@/zustand";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
+import { Link } from "expo-router";
 import { useState } from "react";
+import {
+  Button,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function ListaDeTarefas() {
   const [descricao, setDescricao] = useState("");
@@ -75,38 +83,41 @@ export default function ListaDeTarefas() {
   // }
 
   return (
-    <>
+    <View>
       <Link href="/">Home</Link>
-      <br />
+      <View style={styles.hr} />
       {isError && (
-        <>
-          <h2>Query Error: {error.message}</h2> <hr />{" "}
-        </>
+        <View>
+          <Text style={styles.h2}>Query Error: {error.message}</Text>
+          <View style={styles.hr} />
+        </View>
       )}
       {addMutation.isError && (
-        <>
-          <h2>Mutation Error: {addMutation.error.message}</h2> <hr />{" "}
-        </>
+        <View>
+          <Text style={styles.h2}>
+            Mutation Error: {addMutation.error.message}
+          </Text>
+          <View style={styles.hr} />
+        </View>
       )}
-      <h1>
+      <Text style={styles.h1}>
         Lista de Tarefas {isLoading && "(carregando...)"}{" "}
         {isFetching && "[buscando...]"}
-      </h1>
-      <hr />
-      <p>
-        <input
+      </Text>
+      <View style={styles.hr} />
+      <View style={{ flexDirection: "row" }}>
+        <TextInput
           placeholder="Digite a descrição da tarefa"
           value={descricao}
-          onChange={(evt) => setDescricao(evt.target.value)}
+          onChangeText={setDescricao}
         />
-        <button
-          onClick={handleAdicionarTarefa}
+        <Button
+          onPress={handleAdicionarTarefa}
           disabled={addMutation.isPending}
-        >
-          Adicionar
-        </button>
-      </p>
-      <hr />
+          title="Adicionar"
+        />
+      </View>
+      <View style={styles.hr} />
       {/* 
       <p>
         Ocultar as tarefas concluídas{" "}
@@ -118,8 +129,9 @@ export default function ListaDeTarefas() {
       </p>
       <hr />
       */}
-      <ol>
-        {tarefas?.map((tarefa) => (
+      <FlatList
+        data={tarefas}
+        renderItem={({ item: tarefa }) => (
           <Tarefa
             key={tarefa.objectId}
             tarefa={tarefa}
@@ -127,8 +139,22 @@ export default function ListaDeTarefas() {
             onDelete={handleRemoverTarefa}
             disabled={updateMutation.isPending || deleteMutation.isPending}
           />
-        ))}
-      </ol>
-    </>
+        )}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  hr: {
+    height: 3,
+    backgroundColor: "black",
+    marginVertical: 5,
+  },
+  h1: {
+    fontSize: 20,
+  },
+  h2: {
+    fontSize: 16,
+  },
+});
