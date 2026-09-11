@@ -1,6 +1,6 @@
 import { addTarefa, deleteTarefa, getTarefas, updateTarefa } from "@/api";
 import { Tarefa } from "@/components/Tarefa";
-// import { useTaskFilter } from "@/zustand";
+import { useTaskFilter } from "@/zustand";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import {
   Button,
   FlatList,
   StyleSheet,
+  Switch,
   Text,
   TextInput,
   View,
@@ -15,9 +16,9 @@ import {
 
 export default function ListaDeTarefas() {
   const [descricao, setDescricao] = useState("");
-  // const { filtrarConcluidas, toggleFiltrarConcluidas } = useTaskFilter(
-  //   (state) => state,
-  // );
+  const { filtrarConcluidas, toggleFiltrarConcluidas } = useTaskFilter(
+    (state) => state,
+  );
   const queryClient = useQueryClient();
   const { data, isFetching, isLoading, isError, error } = useQuery({
     queryKey: ["tarefas"],
@@ -78,9 +79,9 @@ export default function ListaDeTarefas() {
   }
 
   let tarefas = data;
-  // if (data && filtrarConcluidas) {
-  //   tarefas = data.filter((tarefa) => !tarefa.concluida);
-  // }
+  if (data && filtrarConcluidas) {
+    tarefas = data.filter((tarefa) => !tarefa.concluida);
+  }
 
   return (
     <View>
@@ -118,17 +119,17 @@ export default function ListaDeTarefas() {
         />
       </View>
       <View style={styles.hr} />
-      {/* 
-      <p>
-        Ocultar as tarefas concluídas{" "}
-        <input
-          type="checkbox"
-          checked={filtrarConcluidas}
-          onChange={toggleFiltrarConcluidas}
+      <View style={{ flexDirection: "row" }}>
+        <Text>Ocultar as tarefas concluídas </Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={filtrarConcluidas ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleFiltrarConcluidas}
+          value={filtrarConcluidas}
         />
-      </p>
-      <hr />
-      */}
+      </View>
+      <View style={styles.hr} />
       <FlatList
         data={tarefas}
         renderItem={({ item: tarefa }) => (
