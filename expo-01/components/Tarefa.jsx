@@ -1,4 +1,5 @@
-import { Button, Switch, Text, View } from "react-native";
+import { Pressable, Switch, Text, View } from "react-native";
+import { FontAwesome5 } from "@react-native-vector-icons/fontawesome5";
 
 export function Tarefa({ tarefa, onUpdate, onDelete, disabled }) {
   function handleConcluidaChange() {
@@ -16,12 +17,9 @@ export function Tarefa({ tarefa, onUpdate, onDelete, disabled }) {
         value={tarefa.concluida}
         disabled={disabled}
       />
-      <Button
-        color="red"
-        onPress={() => onDelete(tarefa)}
-        title="🗑"
-        disabled={disabled}
-      />
+      <Pressable onPress={() => onDelete(tarefa)} disabled={disabled}>
+        <FontAwesome5 name="trash-alt" size={28} color="red" />
+      </Pressable>
     </View>
   );
 }

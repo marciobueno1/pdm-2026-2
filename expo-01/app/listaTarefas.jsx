@@ -2,7 +2,6 @@ import { addTarefa, deleteTarefa, getTarefas, updateTarefa } from "@/api";
 import { Tarefa } from "@/components/Tarefa";
 import { useTaskFilter } from "@/zustand";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link } from "expo-router";
 import { useState } from "react";
 import {
   Button,
@@ -85,8 +84,6 @@ export default function ListaDeTarefas() {
 
   return (
     <View>
-      <Link href="/">Home</Link>
-      <View style={styles.hr} />
       {isError && (
         <View>
           <Text style={styles.h2}>Query Error: {error.message}</Text>
@@ -102,8 +99,7 @@ export default function ListaDeTarefas() {
         </View>
       )}
       <Text style={styles.h1}>
-        Lista de Tarefas {isLoading && "(carregando...)"}{" "}
-        {isFetching && "[buscando...]"}
+        {isLoading && "(carregando...)"} {isFetching && "[buscando...]"}
       </Text>
       <View style={styles.hr} />
       <View style={{ flexDirection: "row" }}>
