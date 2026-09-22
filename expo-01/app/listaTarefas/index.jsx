@@ -2,6 +2,7 @@ import { addTarefa, deleteTarefa, getTarefas, updateTarefa } from "@/api";
 import { Tarefa } from "@/components/Tarefa";
 import { useTaskFilter } from "@/zustand";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Button,
@@ -14,6 +15,7 @@ import {
 } from "react-native";
 
 export default function ListaDeTarefas() {
+  const router = useRouter();
   const [descricao, setDescricao] = useState("");
   const { filtrarConcluidas, toggleFiltrarConcluidas } = useTaskFilter(
     (state) => state,
@@ -77,6 +79,13 @@ export default function ListaDeTarefas() {
     deleteMutation.mutate(tarefa);
   }
 
+  function handleNavigate(id) {
+    router.navigate({
+      pathname: "/listaTarefas/[id]",
+      params: { id: id },
+    });
+  }
+
   let tarefas = data;
   if (data && filtrarConcluidas) {
     tarefas = data.filter((tarefa) => !tarefa.concluida);
@@ -134,6 +143,7 @@ export default function ListaDeTarefas() {
             tarefa={tarefa}
             onUpdate={handleAtualizarTarefa}
             onDelete={handleRemoverTarefa}
+            onNavigate={handleNavigate}
             disabled={updateMutation.isPending || deleteMutation.isPending}
           />
         )}
