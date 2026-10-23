@@ -39,8 +39,8 @@
   },
   "scripts": {
     "start": "expo start",
-    "go": "expo start --go",
-    "goTunnel": "expo start --go --tunnel",
+    "go": "EXPO_NO_REDIRECT_PAGE=1 expo start --go",
+    "goTunnel": "EXPO_NO_REDIRECT_PAGE=1 expo start --go --tunnel=ngrok",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
